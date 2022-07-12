@@ -17,9 +17,9 @@ describe('AppController (e2e)', () => {
   });
 
   describe('/ (POST)', () => {
-    it('Behaves in the expected manner when given the right data', async () => {
-      jest.setTimeout(30000);
+    jest.setTimeout(30000);
 
+    it('Behaves in the expected manner when given the right data', async () => {
       const response = await request(app.getHttpServer())
         .post('/get-closest-neo')
         .send({
@@ -41,8 +41,6 @@ describe('AppController (e2e)', () => {
     });
 
     it('Replies with status code 400 when doing an invalid query', () => {
-      jest.setTimeout(10000);
-
       return request(app.getHttpServer())
         .post('/get-closest-neo')
         .send({
