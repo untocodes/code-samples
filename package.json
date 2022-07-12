@@ -1,0 +1,23 @@
+{
+  "name": "nasa-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:api": "npm run test --workspace=api",
+    "dev:api": "npm run start:dev --workspace=api"
+  },
+  "workspaces": [
+    "packages/api"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/untocodes/code-samples.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/untocodes/code-samples/issues"
+  },
+  "homepage": "https://github.com/untocodes/code-samples#readme"
+}
