@@ -16,33 +16,31 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  describe('/ (POST)', () => {
-    it('Behaves in the expected manner when given the right data', async () => {
-      jest.setTimeout(30000);
-
-      const response = await request(app.getHttpServer())
+  describe('/get-closest-neo (POST)', () => {
+    it('Behaves in the expected manner when given the right data', () => {
+      request(app.getHttpServer())
         .post('/get-closest-neo')
         .send({
-          start_date: '2022-05-01',
-          end_date: '2022-05-01',
+          start_date: '2021-05-01',
+          end_date: '2022-05-07',
         })
-        .expect(201);
-
-      expect(response.body).toEqual({
-        id: expect.any(String),
-        estimated_diameter_km: {
-          max: expect.any(Number),
-          min: expect.any(Number),
-        },
-        miss_distance_km: expect.any(String),
-        name: expect.any(String),
-        nasa_url: expect.any(String),
-      });
+        .expect(201)
+        .end((err, res) => {
+          if (err) expect(err).toBeFalsy();
+          expect(res.body).toEqual({
+            id: expect.any(String),
+            estimated_diameter_km: {
+              max: expect.any(Number),
+              min: expect.any(Number),
+            },
+            miss_distance_km: expect.any(String),
+            name: expect.any(String),
+            nasa_url: expect.any(String),
+          });
+        });
     });
 
     it('Replies with status code 400 when doing an invalid query', () => {
-      jest.setTimeout(10000);
-
       return request(app.getHttpServer())
         .post('/get-closest-neo')
         .send({
