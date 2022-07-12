@@ -2,6 +2,7 @@ interface dateRange {
   startDate: Date;
   endDate: Date;
 }
+
 /**
  * Splits date range into ranges the size of amount of days provided in rangeLength
  *

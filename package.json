@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start:api": "npm run start --workspace=api",
     "test:api": "npm run test --workspace=api",
     "dev:api": "npm run start:dev --workspace=api"
   },
@@ -19,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/untocodes/code-samples/issues"
   },
-  "homepage": "https://github.com/untocodes/code-samples#readme"
+  "homepage": "https://github.com/untocodes/code-samples#readme",
+  "dependencies": {
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.13.2"
+  }
 }

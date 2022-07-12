@@ -6,6 +6,7 @@ export interface NeoWsNearEarthObject {
   nasa_jpl_url: string;
   absolute_magnitude_h: number;
 }
+
 export interface NeoWsResponse {
   links: string[];
   element_count: number;

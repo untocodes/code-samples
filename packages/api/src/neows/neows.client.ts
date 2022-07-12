@@ -4,7 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
 import { Err, Ok } from 'ts-results';
 import { NeoWsResponse } from './interfaces/neows.inteface';
-import { SharedAsyncResult } from '../shared/shared-results.type';
+import { SharedAsyncResult } from '../shared/type/shared-results.type';
 
 @Injectable()
 export class NeoWsClient {
@@ -41,8 +41,8 @@ export class NeoWsClient {
   private getQueryURL(startDate: Date, endDate: Date) {
     const apiKey = this.configService.get<string>('NASA_API_KEY');
     // Convert Date's to ISO timestamps
-    const [startTimestamp, endTimestamp] = [startDate, endDate].map((date) =>
-      date.toISOString(),
+    const [startTimestamp, endTimestamp] = [startDate, endDate].map(
+      (date) => date.toISOString().split('T'), // Only send dates
     );
     return `https://api.nasa.gov/neo/rest/v1/feed?start_date=${startTimestamp}&end_date=${endTimestamp}&api_key=${apiKey}`;
   }
