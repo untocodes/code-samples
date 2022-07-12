@@ -1,7 +1,7 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, retry } from 'rxjs';
 import { Err, Ok } from 'ts-results';
 import { NeoWsResponse } from './interfaces/neows.inteface';
 import { SharedAsyncResult } from '../shared/type/shared-results.type';
@@ -21,9 +21,8 @@ export class NeoWsClient {
     const queryURL = this.getQueryURL(startDate, endDate);
     let result;
     try {
-      // NeoWS API seems to be quite prone to errors on higher batch sizes, we could add retry logic here
       result = await firstValueFrom(
-        this.httpService.get<NeoWsResponse>(queryURL),
+        this.httpService.get<NeoWsResponse>(queryURL).pipe(retry(3)), // NeoWS API seems to be quite prone to errors, thus we have retry logic here
       ).catch(console.log);
 
       return Ok(result.data);
@@ -45,7 +44,7 @@ export class NeoWsClient {
 
   private getQueryURL(startDate: Date, endDate: Date) {
     const apiKey = this.configService.get<string>('NASA_API_KEY');
-    // Convert Date's to ISO timestamps with only the date
+    // Convert Dates to ISO timestamps with only the date
     const [startTimestamp, endTimestamp] = [startDate, endDate].map(
       (date) => date.toISOString().split('T')[0],
     );
