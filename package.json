@@ -10,9 +10,14 @@
     "dev:api": "npm run start:dev --workspace=api",
     "command:query-neows": "npm run command:query-neows --workspace=api"
   },
-  "workspaces": [
-    "packages/api"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/@nestjs/**"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/untocodes/code-samples.git"
@@ -22,10 +27,5 @@
   "bugs": {
     "url": "https://github.com/untocodes/code-samples/issues"
   },
-  "homepage": "https://github.com/untocodes/code-samples#readme",
-  "dependencies": {
-    "@nestjs/swagger": "^6.0.3",
-    "class-transformer": "^0.5.1",
-    "class-validator": "^0.13.2"
-  }
+  "homepage": "https://github.com/untocodes/code-samples#readme"
 }
