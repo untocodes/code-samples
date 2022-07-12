@@ -23,7 +23,7 @@ export class AppController {
     private readonly closestAsteroidDtoMapper: ClosestAsteroidDtoMapper,
   ) {}
 
-  @Post()
+  @Post('get-closest-neo')
   @ApiResponse({
     status: 201,
     description: 'Querying NeoWs API went successfully',

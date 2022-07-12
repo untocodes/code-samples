@@ -6,7 +6,8 @@
   "scripts": {
     "start:api": "npm run start:prod --workspace=api",
     "test:api": "npm run test --workspace=api",
-    "dev:api": "npm run start:dev --workspace=api"
+    "dev:api": "npm run start:dev --workspace=api",
+    "command:query-neows": "npm run command:query-neows --workspace=api"
   },
   "workspaces": [
     "packages/api"

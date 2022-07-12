@@ -12,7 +12,6 @@ https://drive.google.com/file/d/1aYR-P4EuywQK3nqsPIC2Y2DGh95gWMhc/view
 ## Used technologies
 
 - Backend/API:
-
   - Nest.js
   - Jest for E2E and Unit testing
   - axios for REST requests
@@ -25,7 +24,25 @@ https://drive.google.com/file/d/1aYR-P4EuywQK3nqsPIC2Y2DGh95gWMhc/view
 - packages/lib/
   - Contains DTOs that could be shared with a client application (for example a web frontend).
 
+## Setup
+
+1. Run the following command to install all the node modules:
+
+```
+npm install
+```
+
+2. Copy the `.env.sample` file to `.env` and fill the required credentials.
+
 ## How to use
+
+### Querying the NeoWS API
+
+There is a CLI command that you can use to query the NeoWS api using the same logic as through the REST API provided by this package, by running:
+
+```
+npm run command:query-neows <startDate> <endDate>
+```
 
 ### Watch-mode start
 
