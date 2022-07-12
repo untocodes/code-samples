@@ -16,6 +16,7 @@ https://drive.google.com/file/d/1aYR-P4EuywQK3nqsPIC2Y2DGh95gWMhc/view
   - Jest for E2E and Unit testing
   - axios for REST requests
   - nest-commander for commands
+  - Swagger for OpenAPI and interface
 
 ## Structure
 
