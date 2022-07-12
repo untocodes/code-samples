@@ -30,6 +30,7 @@
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/swagger": "^5.2.1",
     "axios": "^0.27.2",
+    "fishery": "^2.2.2",
     "joi": "^17.6.0",
     "nest-commander": "^2.5.0",
     "reflect-metadata": "^0.1.13",
@@ -39,6 +40,7 @@
     "ts-results": "^3.3.0"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.3.0",
     "@nestjs/cli": "^8.0.0",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",

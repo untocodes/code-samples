@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common';
 import { Command, CommandRunner } from 'nest-commander';
-import { ClosestAsteroidDtoMapper } from 'src/mappers/closest-asteroid-dto.mapper';
+import { ClosestAsteroidDtoMapper } from '../../mappers/closest-asteroid-dto.mapper';
 import { NeoWsNearEarthObject } from '../interfaces/neows.inteface';
 import { NeoWsService } from '../neows.service';
 

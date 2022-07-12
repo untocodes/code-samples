@@ -34,15 +34,15 @@ export class AppController {
     @Body() request: ClosestAsteroidRequestDto,
   ): Promise<ClosestAsteroidResponseDto> {
     const { start_date, end_date } = request;
+    // Query closest asteroid from service
     const result = await this.neoWsService.queryClosestAsteroid(
       start_date,
       end_date,
     );
-
     if (result.err) throw new HttpException(result.val.message, 500);
-
     const nearEarthObject = result.val as NeoWsNearEarthObject;
 
+    // Map asteroid data to DTO and send it to the client
     return this.closestAsteroidDtoMapper.toClosestAsteroidResponseDto(
       nearEarthObject,
     );

@@ -11,7 +11,11 @@ interface dateRange {
  * @param rangeLength amount of days to split to
  * @returns array containing date ranges
  */
-export const splitDateRange = (startDate, endDate, rangeLength) => {
+export const splitDateRange = (
+  startDate: Date,
+  endDate: Date,
+  rangeLength: number,
+) => {
   const ranges: dateRange[] = [];
   const current = new Date(startDate.getTime());
 
