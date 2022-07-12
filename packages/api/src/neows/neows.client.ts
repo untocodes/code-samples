@@ -17,14 +17,18 @@ export class NeoWsClient {
     startDate: Date,
     endDate: Date,
   ): SharedAsyncResult<NeoWsResponse> {
-    Logger.log('Querying daterange', { startDate, endDate });
     const queryURL = this.getQueryURL(startDate, endDate);
     let result;
     try {
-      result = await firstValueFrom(
-        this.httpService.get<NeoWsResponse>(queryURL).pipe(retry(3)), // NeoWS API seems to be quite prone to errors, thus we have retry logic here
-      ).catch(console.log);
+      Logger.log(
+        `Querying dates: ${startDate.toISOString().split('T')[0]} -> ${
+          endDate.toISOString().split('T')[0]
+        }`,
+      );
 
+      result = await firstValueFrom(
+        this.httpService.get<NeoWsResponse>(queryURL).pipe(retry(3)), // The NeoWS API seems to be quite prone to errors (it's hosted in heroku), thus we have retry logic here
+      );
       return Ok(result.data);
     } catch (error) {
       const errorMessage = 'Querying NeoWs API failed';
