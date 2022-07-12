@@ -17,11 +17,14 @@ export class NeoWsClient {
     startDate: Date,
     endDate: Date,
   ): SharedAsyncResult<NeoWsResponse> {
+    Logger.log('Querying daterange', { startDate, endDate });
     const queryURL = this.getQueryURL(startDate, endDate);
+    let result;
     try {
-      const result = await firstValueFrom(
+      // NeoWS API seems to be quite prone to errors on higher batch sizes, we could add retry logic here
+      result = await firstValueFrom(
         this.httpService.get<NeoWsResponse>(queryURL),
-      );
+      ).catch(console.log);
 
       return Ok(result.data);
     } catch (error) {
@@ -29,6 +32,8 @@ export class NeoWsClient {
 
       Logger.error(errorMessage, {
         error,
+        startDate,
+        endDate,
       });
 
       return Err({
@@ -40,9 +45,9 @@ export class NeoWsClient {
 
   private getQueryURL(startDate: Date, endDate: Date) {
     const apiKey = this.configService.get<string>('NASA_API_KEY');
-    // Convert Date's to ISO timestamps
+    // Convert Date's to ISO timestamps with only the date
     const [startTimestamp, endTimestamp] = [startDate, endDate].map(
-      (date) => date.toISOString().split('T'), // Only send dates
+      (date) => date.toISOString().split('T')[0],
     );
     return `https://api.nasa.gov/neo/rest/v1/feed?start_date=${startTimestamp}&end_date=${endTimestamp}&api_key=${apiKey}`;
   }

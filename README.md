@@ -18,6 +18,13 @@ https://drive.google.com/file/d/1aYR-P4EuywQK3nqsPIC2Y2DGh95gWMhc/view
   - axios for REST requests
   - nest-commander for commands
 
+## Structure
+
+- packages/api/
+  - Contains the Nest.js powered REST API and commands
+- packages/lib/
+  - Contains DTO's that could be shared with a client application (for example a web frontend).
+
 ## How to use
 
 ### Watch-mode start

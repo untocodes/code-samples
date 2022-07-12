@@ -2,7 +2,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
 import { AppController } from './app.controller';
-import { NeoWsModule } from './neows/neows.module.';
+import { ClosestAsteroidDtoMapper } from './mappers/closest-asteroid-dto.mapper';
+import { NeoWsModule } from './neows/neows.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { NeoWsModule } from './neows/neows.module.';
     }),
     NeoWsModule,
   ],
+  providers: [ClosestAsteroidDtoMapper],
   controllers: [AppController],
 })
 export class AppModule {}
