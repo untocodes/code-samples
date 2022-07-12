@@ -66,5 +66,8 @@ npm run start:api
 The tests can be ran by running the following command:
 
 ```
+# Unit tests
 npm run test:api
+# E2E tests
+npm run test-e2e:api
 ```
