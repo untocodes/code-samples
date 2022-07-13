@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import {
   NeoWsNearEarthObject,
   NeoWsResponse,
@@ -22,6 +22,7 @@ export class NeoWsService {
     // Combine records to add new data
     return Ok(res.near_earth_objects);
   }
+
   async queryClosestAsteroid(
     startDate: Date,
     endDate: Date,
@@ -31,13 +32,18 @@ export class NeoWsService {
     let values: Record<string, NeoWsNearEarthObject[]>;
 
     // Batch requests, only send 20 requests at a time
-    let batchSize = 20;
-    for (let i = 0; i < Object.values(ranges).length; i += batchSize) {
+    const batchSize = 20;
+    for (
+      let i = 0;
+      i < Object.values(ranges).length + batchSize;
+      i += batchSize
+    ) {
       const results = await Promise.all(
         ranges
           .slice(i, i + batchSize)
           .map((range) => this.queryAsteroids(range.startDate, range.endDate)),
       );
+
       for (const result of results) {
         if (result.err) return result;
         else {
@@ -53,7 +59,8 @@ export class NeoWsService {
     // Find the one with the samllest miss_distance from earth
     let minDistance;
     let maxDistanceKey = '';
-    for (let key in values) {
+
+    for (const key in values) {
       const missDistance = Number(
         values[key][0].close_approach_data[0].miss_distance.kilometers,
       );

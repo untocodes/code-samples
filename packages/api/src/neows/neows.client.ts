@@ -18,15 +18,14 @@ export class NeoWsClient {
     endDate: Date,
   ): SharedAsyncResult<NeoWsResponse> {
     const queryURL = this.getQueryURL(startDate, endDate);
-    let result;
     try {
       Logger.log(
-        `Querying range: ${startDate.toISOString().split('T')[0]} -> ${
-          endDate.toISOString().split('T')[0]
-        }`,
+        `Querying range: ${this.dateToDatestamp(
+          startDate,
+        )} -> ${this.dateToDatestamp(endDate)}`,
       );
 
-      result = await firstValueFrom(
+      const result = await firstValueFrom(
         this.httpService.get<NeoWsResponse>(queryURL).pipe(retry(3)), // The NeoWS API seems to be quite prone to errors (it's hosted in heroku), thus we have retry logic here
       );
       return Ok(result.data);
@@ -46,11 +45,12 @@ export class NeoWsClient {
     }
   }
 
+  private dateToDatestamp = (date: Date) => date.toISOString().split('T')[0];
   private getQueryURL(startDate: Date, endDate: Date) {
     const apiKey = this.configService.get<string>('NASA_API_KEY');
     // Convert Dates to ISO timestamps with only the date
-    const [startTimestamp, endTimestamp] = [startDate, endDate].map(
-      (date) => date.toISOString().split('T')[0],
+    const [startTimestamp, endTimestamp] = [startDate, endDate].map((date) =>
+      this.dateToDatestamp(date),
     );
     return `https://api.nasa.gov/neo/rest/v1/feed?start_date=${startTimestamp}&end_date=${endTimestamp}&api_key=${apiKey}`;
   }

@@ -9,6 +9,7 @@ import { NeoWsModule } from './neows/neows.module';
   imports: [
     ConfigModule.forRoot({
       envFilePath: '../../.env', // use shared env
+
       // Validate contents of the provided configuration
       validationSchema: Joi.object({
         NASA_API_KEY: Joi.string().required(),

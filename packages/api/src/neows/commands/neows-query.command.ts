@@ -15,7 +15,7 @@ export class NeoWsQueryCommand implements CommandRunner {
     private readonly closestAsteroidMapper: ClosestAsteroidDtoMapper,
   ) {}
 
-  async run(parameters: string[]): Promise<void> {
+  public async run(parameters: string[]): Promise<void> {
     try {
       const startTime = Date.now();
 

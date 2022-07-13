@@ -1,11 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpException,
-  Logger,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, HttpException, Post } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
   ClosestAsteroidRequestDto,
@@ -34,11 +27,13 @@ export class AppController {
     @Body() request: ClosestAsteroidRequestDto,
   ): Promise<ClosestAsteroidResponseDto> {
     const { start_date, end_date } = request;
+
     // Query closest asteroid from service
     const result = await this.neoWsService.queryClosestAsteroid(
       start_date,
       end_date,
     );
+
     if (result.err) throw new HttpException(result.val.message, 500);
     const nearEarthObject = result.val as NeoWsNearEarthObject;
 
